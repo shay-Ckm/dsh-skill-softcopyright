@@ -28,14 +28,14 @@
     "softcopyright",
     "aigc"
   ],
-  "author": "zhang-shaokai-ll",
+  "author": "shay-Ckm",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhang-shaokai-ll/dsh-skill-softcopyright.git"
+    "url": "git+https://github.com/shay-Ckm/dsh-skill-softcopyright.git"
   },
-  "homepage": "https://github.com/zhang-shaokai-ll/dsh-skill-softcopyright#readme",
+  "homepage": "https://github.com/shay-Ckm/dsh-skill-softcopyright#readme",
   "bugs": {
-    "url": "https://github.com/zhang-shaokai-ll/dsh-skill-softcopyright/issues"
+    "url": "https://github.com/shay-Ckm/dsh-skill-softcopyright/issues"
   },
   "dsh": {
     "bundle": {
