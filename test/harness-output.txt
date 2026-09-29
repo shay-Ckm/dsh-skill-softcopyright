@@ -1,0 +1,176 @@
+﻿dsh-skill-softcopyright —— M1 验收 harness
+插件根目录 : E:\Users\L\Desktop\个人ai项目\deepseel-harness\plugins\dsh-skill-softcopyright
+技能资产   : E:\Users\L\Desktop\个人ai项目\deepseel-harness\plugins\dsh-skill-softcopyright\assets\skills
+原始技能包 : E:\Users\L\Desktop\个人ai项目\deepseel-harness\_ref_skills
+
+=== A3 无分叉：插件内 SKILL.md 与原始技能包 byte-identical ===
+  PASS  python-software-delivery/SKILL.md 哈希一致
+  PASS  manual-ui-screenshots/SKILL.md 哈希一致
+  PASS  aigc-review-reduction/SKILL.md 哈希一致
+  PASS  software-copyright-aigc-appeal/SKILL.md 哈希一致
+
+=== A3 去重：check_aigc.py 双份已统一为超集版 ===
+  PASS  两份 check_aigc.py 哈希一致
+  PASS  保留的是 17907 字节超集版
+  PASS  超集版包含 --struct 结构扫描
+
+=== A3 去重：aigc-reduction.md 双份一致 ===
+  PASS  两份 aigc-reduction.md 哈希一致
+
+=== A1 技能契约：provider.list() ===
+  PASS  注册了 1 个 provider
+  PASS  provider 名为 softcopyright
+  PASS  列出 4 个技能
+  PASS  技能名完全匹配
+  PASS  python-software-delivery: description 非空
+  PASS  python-software-delivery: rank = 600
+  PASS  python-software-delivery: provider = softcopyright
+  PASS  python-software-delivery: source = bundled
+  PASS  python-software-delivery: modelInvocable + userInvocable
+  PASS  python-software-delivery: locator 指向 SKILL.md
+  PASS  manual-ui-screenshots: description 非空
+  PASS  manual-ui-screenshots: rank = 600
+  PASS  manual-ui-screenshots: provider = softcopyright
+  PASS  manual-ui-screenshots: source = bundled
+  PASS  manual-ui-screenshots: modelInvocable + userInvocable
+  PASS  manual-ui-screenshots: locator 指向 SKILL.md
+  PASS  aigc-review-reduction: description 非空
+  PASS  aigc-review-reduction: rank = 600
+  PASS  aigc-review-reduction: provider = softcopyright
+  PASS  aigc-review-reduction: source = bundled
+  PASS  aigc-review-reduction: modelInvocable + userInvocable
+  PASS  aigc-review-reduction: locator 指向 SKILL.md
+  PASS  software-copyright-aigc-appeal: description 非空
+  PASS  software-copyright-aigc-appeal: rank = 600
+  PASS  software-copyright-aigc-appeal: provider = softcopyright
+  PASS  software-copyright-aigc-appeal: source = bundled
+  PASS  software-copyright-aigc-appeal: modelInvocable + userInvocable
+  PASS  software-copyright-aigc-appeal: locator 指向 SKILL.md
+
+=== A2 资源可达：resourceBase 与 get() ===
+  PASS  python-software-delivery: resourceBase.kind = directory
+  PASS  python-software-delivery: resourceBase.path 绝对且存在
+  PASS  python-software-delivery: 含 SKILL.md
+  PASS  python-software-delivery: 含 scripts/
+  PASS  python-software-delivery: get() 返回同名定义
+  PASS  python-software-delivery: 正文非空
+  PASS  python-software-delivery: 正文不含 frontmatter 残留
+  PASS  python-software-delivery: 返回的 resourceBase 仍在（供渲染资源指引）
+  PASS  python-software-delivery: rank 未泄漏进定义
+  PASS  python-software-delivery: locator 未泄漏进定义
+  PASS  manual-ui-screenshots: resourceBase.kind = directory
+  PASS  manual-ui-screenshots: resourceBase.path 绝对且存在
+  PASS  manual-ui-screenshots: 含 SKILL.md
+  PASS  manual-ui-screenshots: 含 scripts/
+  PASS  manual-ui-screenshots: get() 返回同名定义
+  PASS  manual-ui-screenshots: 正文非空
+  PASS  manual-ui-screenshots: 正文不含 frontmatter 残留
+  PASS  manual-ui-screenshots: 返回的 resourceBase 仍在（供渲染资源指引）
+  PASS  manual-ui-screenshots: rank 未泄漏进定义
+  PASS  manual-ui-screenshots: locator 未泄漏进定义
+  PASS  aigc-review-reduction: resourceBase.kind = directory
+  PASS  aigc-review-reduction: resourceBase.path 绝对且存在
+  PASS  aigc-review-reduction: 含 SKILL.md
+  PASS  aigc-review-reduction: 含 scripts/
+  PASS  aigc-review-reduction: get() 返回同名定义
+  PASS  aigc-review-reduction: 正文非空
+  PASS  aigc-review-reduction: 正文不含 frontmatter 残留
+  PASS  aigc-review-reduction: 返回的 resourceBase 仍在（供渲染资源指引）
+  PASS  aigc-review-reduction: rank 未泄漏进定义
+  PASS  aigc-review-reduction: locator 未泄漏进定义
+  PASS  software-copyright-aigc-appeal: resourceBase.kind = directory
+  PASS  software-copyright-aigc-appeal: resourceBase.path 绝对且存在
+  PASS  software-copyright-aigc-appeal: 含 SKILL.md
+  PASS  software-copyright-aigc-appeal: 含 scripts/
+  PASS  software-copyright-aigc-appeal: get() 返回同名定义
+  PASS  software-copyright-aigc-appeal: 正文非空
+  PASS  software-copyright-aigc-appeal: 正文不含 frontmatter 残留
+  PASS  software-copyright-aigc-appeal: 返回的 resourceBase 仍在（供渲染资源指引）
+  PASS  software-copyright-aigc-appeal: rank 未泄漏进定义
+  PASS  software-copyright-aigc-appeal: locator 未泄漏进定义
+
+=== A2 资源指引：技能正文引用的脚本真实存在 ===
+  PASS  manual-ui-screenshots 正文提到 insert_atlas_into_manual.py 且文件存在
+  PASS  manual-ui-screenshots 正文提到 check_manual_with_figs.py 且文件存在
+  PASS  manual-ui-screenshots 正文提到 shoot_real_ui.py 且文件存在
+  PASS  python-software-delivery 正文提到 gen_manual_docx.py 且文件存在
+  PASS  python-software-delivery 正文提到 check_aigc.py 且文件存在
+  PASS  python-software-delivery 正文提到 build_src_package.py 且文件存在
+  PASS  python-software-delivery 正文提到 gen_src_docx.py 且文件存在
+
+=== A2 工具指引注入开关 ===
+  PASS  默认注入工具指引
+  PASS  injectToolGuide=false 时不注入
+  PASS  关闭注入后正文仍非空
+
+=== A2 配置：enabledSkills 筛选与未知名校验 ===
+  PASS  enabledSkills 只启用指定技能
+  PASS  未知技能名抛错
+
+=== 启动期严格校验：坏 assetRoot 必须快速失败 ===
+  PASS  不存在的 assetRoot 抛错且信息可操作
+  PASS  相对路径 assetRoot 抛错
+
+=== parseSkill / parseTrailingJson ===
+  PASS  parseSkill 取出 description
+  PASS  parseSkill 去掉 frontmatter
+  PASS  无 frontmatter 抛错
+  PASS  提取尾部 JSON
+  PASS  跳过内层花括号的干扰
+  PASS  无 JSON 返回 undefined
+
+=== A4 子进程链路：解析两条 Python 链 ===
+  PASS  找到随包 Python
+  PASS  随包 Python 来源可追溯
+  PASS  找到渲染链 Python
+
+=== A4 子进程链路：经受管 seam 跑通随包 Python ===
+  PASS  退出码为 0
+  PASS  走到了受管 seam（非 node 回退）
+  PASS  拿到结构化 JSON
+  PASS  检测到 python-docx
+  PASS  stdout 编码为 UTF-8
+  PASS  随包链无 pywin32（预期）
+  PASS  spawn 请求带 argv
+  PASS  spawn 请求带必填 cwd（回归守卫：缺 cwd 会同步抛错）
+  PASS  spawn 请求带 graceMs
+  PASS  spawn 请求带 stdio 三路定义
+  PASS  spawn 请求注入 UTF-8 环境
+  PASS  spawn 请求带 abort signal
+  PASS  渲染链可执行
+  PASS  渲染链有 pywin32
+  INFO  渲染链 python-docx = 1.2.0
+
+=== A4 中文输出不被编码破坏（UTF-8 端到端） ===
+  PASS  中文原样取回
+
+=== A4 超时与错误语义 ===
+  PASS  超时被标记
+  PASS  超时不抛裸错误
+  PASS  非零退出码可读回
+
+=== A4 受管 seam 缺席时显式降级 ===
+  PASS  降级到 node:child_process 且标注 seam=node
+
+=== sc_doctor 体检逻辑（doctor-core，真机环境） ===
+  PASS  产出结构化报告
+  PASS  生成/校验链可用
+  PASS  生成链检测到 python-docx
+  PASS  生成链 stdout 编码为 UTF-8
+  PASS  渲染链 pywin32 可用
+  PASS  探知到受管 subprocess seam
+  PASS  技能资产完整（>40 文件）
+  PASS  四个技能都在报告里
+  PASS  整体判定 ok
+  PASS  渲染链 playwright 状态被探知
+  INFO  渲染链已装 playwright → 界面图集「真实运行截图」可直接走渲染链，无需 bsk、无需新装（Q8）
+  PASS  CHAINS: generate 链解析到随包 Python
+  PASS  CHAINS: render 链解析到渲染 Python
+  PASS  渲染文本含两条链段落
+  PASS  渲染文本含资产明细
+  PASS  渲染文本含结论行
+  PASS  countFiles 统计到文件与字节
+
+================================================================
+通过 134 项，失败 0 项，警告 0 项
+================================================================

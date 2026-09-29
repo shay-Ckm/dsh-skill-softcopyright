@@ -1,0 +1,54 @@
+{
+  "name": "dsh-skill-softcopyright",
+  "version": "0.1.0",
+  "description": "软件著作权交付流水线：内置 4 个交付技能（Python 全流程 / 界面图集 / 降 AIGC / 申诉证明）+ 10 步编排 + 确定性校验工具。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "assets",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "skill",
+    "software-copyright",
+    "docx",
+    "softcopyright",
+    "aigc"
+  ],
+  "author": "zhang-shaokai-ll",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhang-shaokai-ll/dsh-skill-softcopyright.git"
+  },
+  "homepage": "https://github.com/zhang-shaokai-ll/dsh-skill-softcopyright#readme",
+  "bugs": {
+    "url": "https://github.com/zhang-shaokai-ll/dsh-skill-softcopyright/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.4",
+    "@deepseek-ai/dsh-tools": "0.1.7-rc.2",
+    "@deepseek-ai/schemastery": "*",
+    "yaml": "^2.4.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

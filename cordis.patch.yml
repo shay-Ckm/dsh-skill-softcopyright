@@ -1,0 +1,9 @@
+# dsh-skill-softcopyright bundle patch
+#
+# 作为 profile bundle 的一层插入本插件的 Loader 行。
+# 以 id `skill-softcopyright` 寻址：profile 自己的 cordis.patch.yml 若用同一 id
+# 覆盖 config，则后写者胜（与 dsh-base 的层次语义一致），不会产生重复行。
+- insert:
+    - id: skill-softcopyright
+      name: dsh-skill-softcopyright
+      config: {}

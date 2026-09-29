@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!--
+  manual-ui-screenshots 技能模板
+  ==============================
+  用法：复制本文件为 <软件名>_界面图集.html，按 SKILL.md 工作流逐图替换/新增
+  <div class="fig" id="figN">...</div> 区块。
+  交付前：把 <link> 引用的 ui-style.css 内容内联进 <style>（保证单文件可移植），
+  并运行 scripts/validate_html.py 校验。
+  三类界面范例（应用外壳 / 终端 / 登录页）见下方 fig1 / fig2 / fig3。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>软件界面图集（图1~图N）</title>
+<link rel="stylesheet" href="ui-style.css" />
+<style>
+  /* 一键导出 PNG（页面级按钮，非截图容器） */
+  .export-btn{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 13px;border:1px solid #91caff;border-radius:6px;background:#fff;color:#1677ff;font-size:12.5px;cursor:pointer;white-space:nowrap;transition:all .15s}
+  .export-btn:hover{background:#e6f4ff;border-color:#1677ff}
+  .cap .export-btn{height:24px;font-size:12px;padding:0 10px;margin-left:10px;vertical-align:middle}
+  .fab-export{position:fixed;right:22px;bottom:26px;z-index:300;height:38px;padding:0 18px;font-size:13.5px;border-color:#1677ff;background:#1677ff;color:#fff;box-shadow:0 4px 16px rgba(22,119,255,.35)}
+  .fab-export:hover{background:#0e5fd8;border-color:#0e5fd8}
+  .fab-export.working{opacity:.75;cursor:wait}
+  #exportHint{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:400;background:rgba(11,31,58,.92);color:#fff;font-size:13px;padding:8px 18px;border-radius:8px;display:none}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>🐍 软件名称 V1.0 — 界面图集（图1 ~ 图N）</h1>
+  <p>本图集依据《使用说明书》各章节描述，结合《源代码文档》按 <b>2559 × 1559</b> 全屏界面逐图重建。每张图即一帧真实界面全图。</p>
+  <div class="badges">
+    <span class="badge">软件版本：V1.0</span>
+    <span class="badge">界面全图：2559 × 1559</span>
+    <span class="badge">对应源码：client/src/pages/*.tsx</span>
+  </div>
+  <button class="export-btn" id="exportAllBtn" style="margin-top:14px;height:34px;padding:0 20px;font-size:13.5px;background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.45)">⬇ 一键导出全部 PNG（2559 × 1559）</button>
+</div>
+
+<!-- 顶部目录：每图一个锚点，新增图记得同步追加 -->
+<nav class="toc">
+  <span class="grp">目录</span>
+  <a href="#fig1">图1</a><a href="#fig2">图2</a><a href="#fig3">图3</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ 范例一：应用外壳界面（顶栏+侧栏+内容区+底栏） ============ -->
+<div class="fig" id="fig1">
+  <div class="shot">
+    <div class="size-tag">2559 × 1559</div>
+    <div class="app">
+      <div class="app-top">
+        <div class="logo"><span class="mark">🐍</span>微管灵蛇</div>
+        <div class="mod-name">设备远程监控</div>
+        <div class="search"><input value="" placeholder="全局搜索…" /><span class="ic">🔍</span></div>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:1.2cqw">
+          <span style="position:relative;font-size:1.2cqw">🔔<span style="position:absolute;top:-0.3cqw;right:-0.5cqw;background:var(--red);color:#fff;font-size:0.57cqw;border-radius:0.6cqw;padding:0 0.22cqw">3</span></span>
+          <span style="width:2.25cqw;height:2.25cqw;border-radius:50%;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:0.825cqw">管</span>
+          <span style="font-size:0.825cqw;color:#333">admin</span>
+        </div>
+      </div>
+      <div class="app-main">
+        <!-- 侧栏：高亮项加 .on，展开子菜单用 .sub/.smi -->
+        <div class="sider">
+          <div class="mi on">📡 设备远程监控 <span class="arr">▾</span></div>
+          <div class="mi">🏙 管网数字孪生</div>
+          <div class="mi">🤖 多机协同调度</div>
+          <div class="mi">💾 数据资产管理</div>
+          <div class="mi">⚙️ 系统管理</div>
+        </div>
+        <div class="content">
+          <!-- 内容区必须为真实页面内容，禁止"中央内容操作区"等占位说明文字 -->
+          <div class="page-title">设备远程监控</div>
+          <div class="stat">
+            <div class="sc"><div class="lb">电量</div><div class="vl">87<small>%</small></div></div>
+            <div class="sc"><div class="lb">温度</div><div class="vl">24.5<small>°C</small></div></div>
+            <div class="sc"><div class="lb">湿度</div><div class="vl">68.2<small>%</small></div></div>
+            <div class="sc"><div class="lb">位姿X</div><div class="vl">12.35<small>m</small></div></div>
+          </div>
+          <div class="card">
+            <div class="card-h">传感器数据流 <span class="hint">自动刷新 1s</span></div>
+            <div style="padding:0.45cqw 0.9cqw">
+              <div class="legend">
+                <span class="li"><span class="sw" style="background:red"></span>H₂S(ppm)</span>
+                <span class="li"><span class="sw" style="background:orange"></span>CH₄(%LEL)</span>
+                <span class="li"><span class="sw" style="background:purple"></span>CO(ppm)</span>
+                <span class="li"><span class="sw" style="background:blue"></span>O₂(%Vol)</span>
+              </div>
+              <!-- 折线图：SVG viewBox 固定坐标 + width 100% 自适应 -->
+              <svg viewBox="0 0 640 150" width="100%" height="9cqh">
+                <g stroke="#e8e8e8"><line x1="0" y1="30" x2="640" y2="30"/><line x1="0" y1="70" x2="640" y2="70"/><line x1="0" y1="110" x2="640" y2="110"/></g>
+                <polyline fill="none" stroke="red" stroke-width="2" points="0,120 80,115 160,100 240,92 320,88 400,70 480,62 560,48 640,42"/>
+                <polyline fill="none" stroke="orange" stroke-width="2" points="0,130 80,126 160,122 240,108 320,102 400,96 480,88 560,72 640,60"/>
+                <polyline fill="none" stroke="purple" stroke-width="2" points="0,140 80,136 160,132 240,128 320,126 400,118 480,112 560,98 640,86"/>
+                <polyline fill="none" stroke="blue" stroke-width="2" points="0,40 80,44 160,48 240,52 320,50 400,54 480,58 560,52 640,50"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-bottom">
+        <span>🕐 2026-07-27 14:32:08</span><span>版本 V1.0</span>
+        <span style="margin-left:auto">在线设备：<b style="color:var(--green)">8</b> 台</span>
+        <span style="display:flex;align-items:center;gap:0.45cqw"><span style="width:0.63cqw;height:0.63cqw;border-radius:50%;background:var(--green);display:inline-block"></span>系统运行正常</span>
+      </div>
+    </div>
+  </div>
+  <div class="cap"><b>图1</b>　界面标题（说明：X.X 章节；对应源码文件）</div>
+</div>
+
+<!-- ============ 范例二：终端界面（安装/卸载/命令行类） ============ -->
+<div class="fig" id="fig2">
+  <div class="shot">
+    <div class="size-tag">2559 × 1559</div>
+    <div class="term">
+      <div class="l"><span class="dim"># 安装前环境检查</span></div>
+      <div class="l"><span class="prompt">admin@server:~$ </span><span class="cmd">docker --version</span></div>
+      <div class="l out">Docker version 24.0.7, build afdd53b</div>
+      <div class="l"><span class="prompt">admin@server:~$ </span><span class="cmd">docker compose version</span></div>
+      <div class="l out">Docker Compose version v2.24.1</div>
+      <div class="l ok">✔ 检查通过：Docker Engine ≥20.10　✔ Docker Compose ≥2.0</div>
+    </div>
+  </div>
+  <div class="cap"><b>图2</b>　安装前环境检查（说明：三.1；命令输出用 .term/.prompt/.cmd/.out/.ok 等类）</div>
+</div>
+
+<!-- ============ 范例三：登录页（全屏居中卡片 + 浏览器地址栏） ============ -->
+<div class="fig" id="fig3">
+  <div class="shot">
+    <div class="size-tag">2559 × 1559</div>
+    <div class="win-body" style="height:100%;background:linear-gradient(135deg,#0b1f3a 0%,#123c74 55%,#1677ff 100%);display:flex;justify-content:center;align-items:center;position:relative">
+      <div style="position:absolute;top:0;left:0;right:0;height:4.8cqw;background:rgba(0,0,0,.18);display:flex;align-items:center;padding:0 2.4cqw;color:#fff;font-size:0.825cqw">
+        <span style="font-weight:600">🔒 https://szsw2024.pipeline-cloud.com</span>
+        <span style="opacity:.75;margin-left:auto">软件名称 V1.0</span>
+      </div>
+      <div class="card" style="width:39cqw;box-shadow:0 1.2cqw 3.4cqw rgba(0,0,0,.35);border:none">
+        <div class="card-b" style="padding:3.6cqw 3.3cqw">
+          <div style="text-align:center;margin-bottom:2.1cqw">
+            <div style="width:4.8cqw;height:4.8cqw;border-radius:0.9cqw;background:linear-gradient(135deg,#1677ff,#0b1f3a);color:#fff;font-size:2.4cqw;display:inline-flex;align-items:center;justify-content:center">🐍</div>
+            <h3 style="margin-top:1.05cqw;color:#0b1f3a;font-size:1.425cqw">软件名称 - 登录</h3>
+          </div>
+          <div class="frm">
+            <div class="fi"><label>用户名 <i>*</i></label><div class="inp" style="height:2.55cqw"><span>admin</span></div></div>
+            <div class="fi"><label>密码 <i>*</i></label><div class="inp" style="height:2.55cqw"><span>●●●●●●●●</span></div></div>
+            <button class="btn p block" style="height:2.7cqw;font-size:0.9cqw">登 录</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap"><b>图3</b>　用户登录界面（说明：八.1；对应源码 client/src/pages/Login.tsx）</div>
+</div>
+
+</div>
+
+<footer style="text-align:center;padding:26px 0 40px;color:var(--muted);font-size:12px">
+  软件名称 V1.0 · 界面图集（图1~图N）· 全部界面按 2559 × 1559 全屏截图重建 · 依据《使用说明书》与《源代码文档》
+</footer>
+
+<script>
+  // 目录平滑滚动
+  document.querySelectorAll('.toc a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(a.getAttribute('href'));
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // ===== 一键导出 PNG（2559 × 1559） =====
+  // 完整实现见 assets/export-png.js；此处为内联版（交付前将 ui-style.css 内联进 <style> 以保持单文件）
+  (function(){
+    var pageCss = Array.prototype.map.call(document.querySelectorAll('style,link[rel=stylesheet]'), function(s){
+      return s.tagName === 'STYLE' ? s.textContent : '';
+    }).join('\n');
+    var hintEl = null;
+    function showHint(msg){
+      if(!hintEl){ hintEl = document.createElement('div'); hintEl.id='exportHint'; document.body.appendChild(hintEl); }
+      hintEl.textContent = msg; hintEl.style.display = 'block';
+    }
+    function hideHint(){ if(hintEl) hintEl.style.display = 'none'; }
+    function sanitizeCloneForSvg(node){
+      node.querySelectorAll('svg').forEach(function(svgEl){
+        var s = new XMLSerializer().serializeToString(svgEl);
+        var b64 = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(s)));
+        var img = document.createElement('img');
+        img.src = b64;
+        img.style.width = svgEl.getAttribute('width') || '100%';
+        img.style.height = svgEl.getAttribute('height') || '';
+        if(svgEl.getAttribute('style')) img.setAttribute('style', svgEl.getAttribute('style'));
+        svgEl.parentNode.replaceChild(img, svgEl);
+      });
+      node.querySelectorAll('input,button,select,textarea').forEach(function(el){
+        var d = document.createElement('span');
+        d.className = el.className || '';
+        if(el.getAttribute('style')) d.setAttribute('style', el.getAttribute('style'));
+        if(el.tagName === 'INPUT'){
+          d.textContent = el.value || el.placeholder || '';
+          d.style.display = 'inline-flex';
+          d.style.alignItems = 'center';
+        } else {
+          d.textContent = el.textContent || '';
+        }
+        el.parentNode.replaceChild(d, el);
+      });
+    }
+    // 动态加载 html2canvas（CDN）。html2canvas 为纯 JS 重绘，不经过 SVG foreignObject，
+    // 不触发浏览器 canvas Tainted 安全限制；它读取浏览器已计算好的像素值（cqw 已被原生解析）。
+    var h2cPromise = null;
+    function loadHtml2canvas(){
+      if(window.html2canvas) return Promise.resolve(window.html2canvas);
+      if(h2cPromise) return h2cPromise;
+      h2cPromise = new Promise(function(resolve, reject){
+        var s = document.createElement('script');
+        s.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+        s.onload = function(){ resolve(window.html2canvas); };
+        s.onerror = function(){ reject(new Error('html2canvas CDN 加载失败（可能需要联网）')); };
+        document.head.appendChild(s);
+      });
+      return h2cPromise;
+    }
+
+    // 克隆 .shot 为 2559×1559 并挂载到隐藏 DOM（html2canvas 依赖真实布局计算位置）
+    function makeClone(figEl){
+      var shot = figEl.querySelector('.shot');
+      if(!shot) return null;
+      var clone = shot.cloneNode(true);
+      clone.style.maxWidth = 'none';
+      clone.style.width = '2559px';
+      clone.style.height = '1559px';
+      sanitizeCloneForSvg(clone); // svg→img dataURI、表单控件→span
+      var holder = document.createElement('div');
+      holder.style.cssText = 'position:fixed;left:-100000px;top:0;width:2559px;height:1559px;overflow:hidden;pointer-events:none;z-index:-1;';
+      holder.appendChild(clone);
+      document.body.appendChild(holder);
+      clone.offsetHeight; // 强制 reflow，确保布局完成
+      return {clone: clone, holder: holder};
+    }
+
+    // 主路径：html2canvas
+    function exportViaHtml2canvas(env, fileName){
+      return loadHtml2canvas().then(function(h2c){
+        return h2c(env.clone, {scale:1, width:2559, height:1559, backgroundColor:'#ffffff', logging:false, useCORS:true});
+      }).then(function(canvas){
+        var a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = fileName;
+        a.click();
+      });
+    }
+
+    // 回退路径：SVG foreignObject（可能受浏览器 Tainted 限制）
+    function exportViaForeignObject(figEl, fileName){
+      var shot = figEl.querySelector('.shot');
+      var clone = shot.cloneNode(true);
+      clone.style.maxWidth = 'none';
+      clone.style.width = '2559px';
+      clone.style.height = '1559px';
+      sanitizeCloneForSvg(clone);
+      var wrapper = document.createElement('div');
+      wrapper.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
+      var styleEl = document.createElement('style');
+      styleEl.textContent = pageCss;
+      wrapper.appendChild(styleEl);
+      wrapper.appendChild(clone);
+      var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
+      svg.setAttribute('width','2559');
+      svg.setAttribute('height','1559');
+      var fo = document.createElementNS('http://www.w3.org/2000/svg','foreignObject');
+      fo.setAttribute('width','100%');
+      fo.setAttribute('height','100%');
+      fo.appendChild(wrapper);
+      svg.appendChild(fo);
+      var holder = document.createElement('div');
+      holder.style.cssText = 'position:fixed;left:-100000px;top:0;width:2559px;height:1559px;overflow:hidden;pointer-events:none;z-index:-1;';
+      holder.appendChild(svg);
+      document.body.appendChild(holder);
+      var svgStr = new XMLSerializer().serializeToString(svg);
+      var blob = new Blob([svgStr], {type:'image/svg+xml;charset=utf-8'});
+      var url = URL.createObjectURL(blob);
+      return new Promise(function(resolve, reject){
+        var img = new Image();
+        img.onload = function(){
+          try {
+            var canvas = document.createElement('canvas');
+            canvas.width = 2559; canvas.height = 1559;
+            canvas.getContext('2d').drawImage(img, 0, 0, 2559, 1559);
+            var a = document.createElement('a');
+            a.href = canvas.toDataURL('image/png');
+            a.download = fileName;
+            a.click();
+            resolve();
+          } catch(e) {
+            var svgName = fileName.replace(/\.png$/i, '') + '.svg';
+            var a2 = document.createElement('a');
+            a2.href = url;
+            a2.download = svgName;
+            a2.click();
+            reject(new Error('PNG 导出受浏览器安全限制（Tainted canvas），已降级下载 SVG 矢量文件：' + svgName + '。可将 SVG 用浏览器打开后另存为 PNG，或使用最新版 Chrome/Edge 重试。'));
+          } finally {
+            URL.revokeObjectURL(url);
+            document.body.removeChild(holder);
+          }
+        };
+        img.onerror = function(){
+          URL.revokeObjectURL(url);
+          document.body.removeChild(holder);
+          reject(new Error('导出失败：' + fileName + '（当前浏览器不支持 SVG foreignObject 渲染，请使用最新版 Chrome / Edge 打开本页面后重试）'));
+        };
+        img.src = url;
+      });
+    }
+
+    // 动态加载 html2canvas（CDN）。html2canvas 为纯 JS 重绘，不经过 SVG foreignObject，
+    // 不触发浏览器 canvas Tainted 安全限制；它读取浏览器已计算好的像素值（cqw 已被原生解析）。
+    var h2cPromise = null;
+    function loadHtml2canvas(){
+      if(window.html2canvas) return Promise.resolve(window.html2canvas);
+      if(h2cPromise) return h2cPromise;
+      h2cPromise = new Promise(function(resolve, reject){
+        var s = document.createElement('script');
+        s.src = 'https://html2canvas.hertzen.com/dist/html2canvas.min.js';
+        s.onload = function(){ resolve(window.html2canvas); };
+        s.onerror = function(){ reject(new Error('html2canvas CDN 加载失败（可能需要联网）')); };
+        document.head.appendChild(s);
+      });
+      return h2cPromise;
+    }
+
+    // 克隆 .shot 为 2559×1559 并挂载到隐藏 DOM（html2canvas 依赖真实布局计算位置）
+    function makeClone(figEl){
+      var shot = figEl.querySelector('.shot');
+      if(!shot) return null;
+      var clone = shot.cloneNode(true);
+      clone.style.maxWidth = 'none';
+      clone.style.width = '2559px';
+      clone.style.height = '1559px';
+      sanitizeCloneForSvg(clone); // svg→img dataURI、表单控件→span
+      var holder = document.createElement('div');
+      holder.style.cssText = 'position:fixed;left:-100000px;top:0;width:2559px;height:1559px;overflow:hidden;pointer-events:none;z-index:-1;';
+      holder.appendChild(clone);
+      document.body.appendChild(holder);
+      clone.offsetHeight; // 强制 reflow，确保布局完成
+      return {clone: clone, holder: holder};
+    }
+
+    // 主路径：html2canvas
+    function exportViaHtml2canvas(env, fileName){
+      return loadHtml2canvas().then(function(h2c){
+        return h2c(env.clone, {scale:1, width:2559, height:1559, backgroundColor:'#ffffff', logging:false, useCORS:true});
+      }).then(function(canvas){
+        var a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = fileName;
+        a.click();
+      });
+    }
+
+    // 回退路径：SVG foreignObject（可能受浏览器 Tainted 限制）
+    function exportViaForeignObject(figEl, fileName){
+      var shot = figEl.querySelector('.shot');
+      var clone = shot.cloneNode(true);
+      clone.style.maxWidth = 'none';
+      clone.style.width = '2559px';
+      clone.style.height = '1559px';
+      sanitizeCloneForSvg(clone);
+      var wrapper = document.createElement('div');
+      wrapper.setAttribute('xmlns','http://www.w3.org/1999/xhtml');
+      var styleEl = document.createElement('style');
+      styleEl.textContent = pageCss;
+      wrapper.appendChild(styleEl);
+      wrapper.appendChild(clone);
+      var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
+      svg.setAttribute('width','2559');
+      svg.setAttribute('height','1559');
+      var fo = document.createElementNS('http://www.w3.org/2000/svg','foreignObject');
+      fo.setAttribute('width','100%');
+      fo.setAttribute('height','100%');
+      fo.appendChild(wrapper);
+      svg.appendChild(fo);
+      var holder = document.createElement('div');
+      holder.style.cssText = 'position:fixed;left:-100000px;top:0;width:2559px;height:1559px;overflow:hidden;pointer-events:none;z-index:-1;';
+      holder.appendChild(svg);
+      document.body.appendChild(holder);
+      var svgStr = new XMLSerializer().serializeToString(svg);
+      var blob = new Blob([svgStr], {type:'image/svg+xml;charset=utf-8'});
+      var url = URL.createObjectURL(blob);
+      return new Promise(function(resolve, reject){
+        var img = new Image();
+        img.onload = function(){
+          try {
+            var canvas = document.createElement('canvas');
+            canvas.width = 2559; canvas.height = 1559;
+            canvas.getContext('2d').drawImage(img, 0, 0, 2559, 1559);
+            var a = document.createElement('a');
+            a.href = canvas.toDataURL('image/png');
+            a.download = fileName;
+            a.click();
+            resolve();
+          } catch(e) {
+            var svgName = fileName.replace(/\.png$/i, '') + '.svg';
+            var a2 = document.createElement('a');
+            a2.href = url;
+            a2.download = svgName;
+            a2.click();
+            reject(new Error('PNG 导出受浏览器安全限制（Tainted canvas），已降级下载 SVG 矢量文件：' + svgName + '。可将 SVG 用浏览器打开后另存为 PNG，或使用最新版 Chrome/Edge 重试。'));
+          } finally {
+            URL.revokeObjectURL(url);
+            document.body.removeChild(holder);
+          }
+        };
+        img.onerror = function(){
+          URL.revokeObjectURL(url);
+          document.body.removeChild(holder);
+          reject(new Error('导出失败：' + fileName + '（当前浏览器不支持 SVG foreignObject 渲染，请使用最新版 Chrome / Edge 打开本页面后重试）'));
+        };
+        img.src = url;
+      });
+    }
+
+    function doExportFig(figEl){
+      var capB = figEl.querySelector('.cap b');
+      var fileName = (capB ? capB.textContent.trim() : '图') + '.png';
+      var env = makeClone(figEl);
+      if(!env) return Promise.reject(new Error('未找到截图容器'));
+      return exportViaHtml2canvas(env, fileName).then(function(){
+        document.body.removeChild(env.holder);
+      }).catch(function(err){
+        document.body.removeChild(env.holder);
+        return exportViaForeignObject(figEl, fileName).catch(function(e2){
+          throw e2;
+        });
+      });
+    }
+    // 等待字体加载完成后再导出，避免中文/图标缺失
+    function exportFigPng(figEl){
+      var ready = (document.fonts && document.fonts.ready) ? document.fonts.ready.then(function(){}) : Promise.resolve();
+      return ready.then(function(){ return doExportFig(figEl); });
+    }
+    window.exportFigPng = exportFigPng;
+
+
+    document.querySelectorAll('.fig').forEach(function(fig){
+      var cap = fig.querySelector('.cap');
+      if(!cap) return;
+      var btn = document.createElement('button');
+      btn.className = 'export-btn';
+      btn.textContent = '导出PNG';
+      btn.addEventListener('click', function(){
+        showHint('正在导出 ' + (fig.querySelector('.cap b') ? fig.querySelector('.cap b').textContent : '') + ' …');
+        exportFigPng(fig).then(hideHint).catch(function(e){ hideHint(); alert(e.message); });
+      });
+      cap.appendChild(btn);
+    });
+    var fab = document.createElement('button');
+    fab.className = 'export-btn fab-export';
+    fab.id = 'exportAllBtn2';
+    fab.textContent = '⬇ 全部导出 PNG';
+    fab.addEventListener('click', function(){
+      var figs = Array.prototype.slice.call(document.querySelectorAll('.fig'));
+      var orig = fab.textContent;
+      fab.classList.add('working');
+      (async function(){
+        try {
+          for(var i = 0; i < figs.length; i++){
+            fab.textContent = '导出中 ' + (i+1) + '/' + figs.length + ' …';
+            showHint('正在导出 ' + (i+1) + '/' + figs.length + '：' + (figs[i].querySelector('.cap b') ? figs[i].querySelector('.cap b').textContent : ''));
+            await exportFigPng(figs[i]);
+            await new Promise(function(r){ setTimeout(r, 400); });
+          }
+          showHint('✔ 全部 ' + figs.length + ' 张已导出');
+          setTimeout(hideHint, 2000);
+        } catch(e) {
+          showHint('✗ ' + e.message);
+          setTimeout(hideHint, 3000);
+        } finally {
+          fab.textContent = orig;
+          fab.classList.remove('working');
+        }
+      })();
+    });
+    document.body.appendChild(fab);
+    var topBtn = document.getElementById('exportAllBtn');
+    if(topBtn) topBtn.addEventListener('click', function(){ document.getElementById('exportAllBtn2') && document.getElementById('exportAllBtn2').click(); });
+  })();
+</script>
+</body>
+</html>

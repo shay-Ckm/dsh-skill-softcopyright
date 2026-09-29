@@ -1,0 +1,197 @@
+# dsh-skill-softcopyright —— 软著交付流水线清单（可定制）
+#
+# 这张表就是「可定制」的主入口（设计文档 §5.7 的 E2 扩展点）：
+# 改阶段、改判据、改顺序、加不变量，都只改这个 YAML，不动 JS。
+# 启动时 manifest.js 会做严格校验，字段写错立刻报错。
+#
+# ---------------------------------------------------------------------------
+# 结构说明
+#
+# phases[]:
+#   id                  阶段标识（kebab-case，唯一）
+#   title               中文标题（汇报用）
+#   skill               该阶段由哪个技能主导（对应 assets/skills/ 下的技能名）
+#   ref                 技能正文里的章节引用（汇报时带上，便于模型定位）
+#   optional            true = 按需阶段，可用 allowSkipPhases 跳过
+#   requires            前置阶段 id 列表（默认按数组顺序链式依赖）
+#   artifacts           完成时必须存在的产物（glob，相对项目根）
+#   evidence            完成时必须「已有通过记录」的证据（tool + action）
+#   measure             完成时必须满足的量化判据（对 evidence/state 里的字段求值）
+#   mustStopAfter       true = 本阶段结束后必须停下等用户确认（Checkpoint 铁律）
+#
+# 判据三类（gates.js 求值）：
+#   artifacts  —— 文件/glob 必须存在
+#   evidence   —— 某个 tool+action 必须已通过，且**晚于本阶段开始时间**（防陈旧证据）
+#   measure    —— 对共享口径（sharedFacts）或证据字段做比较，如 figures==images
+#
+# invariants[]: 跨阶段全程必须成立的不变量（sc_audit 会单独复核）
+# ---------------------------------------------------------------------------
+
+version: 1
+project: softcopyright
+
+phases:
+  - id: p1-requirements
+    title: 需求确认
+    skill: python-software-delivery
+    ref: Phase 1 需求确认
+    artifacts: []
+    measure:
+      - kind: user-confirmed
+        label: 4 项关键决策已问清并获用户确认
+    mustStopAfter: true
+
+  - id: p2-development
+    title: 开发
+    skill: python-software-delivery
+    ref: Phase 2 开发
+    artifacts: []
+    measure:
+      - kind: user-confirmed
+        label: 核心功能可演示（API 联调 + 浏览器实测无 JS 异常）
+    mustStopAfter: true
+
+  - id: p3-regression
+    title: 回归测试
+    skill: python-software-delivery
+    ref: Phase 3 回归测试
+    artifacts: []
+    measure:
+      - kind: user-confirmed
+        label: 多种子 × 多工况断言全过，误判明细已汇报
+    mustStopAfter: true
+
+  - id: p4-package
+    title: 源码打包
+    skill: python-software-delivery
+    ref: Phase 4 源码打包
+    artifacts:
+      - 'dist/*.zip'
+    evidence:
+      - tool: sc_source
+        action: build-package
+    measure:
+      - kind: user-confirmed
+        label: 开发树冒烟 + 发布包冒烟（干净目录）都通过
+    mustStopAfter: true
+
+  - id: p5-1-manual
+    title: 使用说明书 docx
+    skill: python-software-delivery
+    ref: Phase 5.1 使用说明书
+    artifacts:
+      - 'docs/*说明书*.docx'
+    evidence:
+      - tool: sc_manual
+        action: check
+      - tool: sc_source
+        action: stats-hashes
+    measure:
+      - kind: field-at-least
+        source: evidence
+        path: sc_manual.check.figureCaptions
+        value: 30
+        label: 图位 ≥ 30（软著标准 37）
+      - kind: field-equals
+        source: evidence
+        path: sc_manual.check.figureCaptions
+        other: sc_manual.check.figureSlots
+        label: 图题数 == 图位数
+      - kind: pages-measured
+        label: 页数必须来自真实渲染（pagesSource 不得是经验法）
+    mustStopAfter: true
+
+  - id: p5-2-atlas
+    title: 界面图集 + 回填说明书
+    skill: manual-ui-screenshots
+    ref: Phase 5.2 界面图集并回填
+    artifacts:
+      - 'docs/*说明书*.docx'
+    evidence:
+      - tool: sc_manual
+        action: check-figs
+    measure:
+      - kind: field-equals
+        source: evidence
+        path: sc_manual.check-figs.figureCaptions
+        other: sc_manual.check-figs.images
+        label: 图题数 == 图片数（插图版完成判据）
+      - kind: field-equals
+        source: evidence
+        path: sc_manual.check-figs.placeholdersLeft
+        value: 0
+        label: 残留占位段为 0
+    mustStopAfter: true
+
+  - id: p5-3-srcdoc
+    title: 源代码文档 docx
+    skill: python-software-delivery
+    ref: Phase 5.3 源代码文档
+    artifacts:
+      - 'docs/*源代码文档*.docx'
+    evidence:
+      - tool: sc_source
+        action: check-doc
+    measure:
+      - kind: user-confirmed
+        label: 逐行比对全部一致
+    mustStopAfter: true
+
+  - id: p5-4-aigc
+    title: 降 AIGC 率（按需）
+    skill: aigc-review-reduction
+    ref: Phase 5.4 降 AIGC 率
+    optional: true
+    artifacts: []
+    evidence:
+      - tool: sc_aigc
+        action: scan
+    measure:
+      - kind: field-at-least
+        source: evidence
+        path: sc_aigc.scan.reductionPct
+        value: 50
+        label: AI 高频词降幅 ≥ 50%
+      - kind: field-at-most
+        source: evidence
+        path: sc_aigc.scan.structuralTotal
+        value: 0
+        label: 结构性问题残留为 0
+    mustStopAfter: true
+
+  - id: p5-5-proof
+    title: AIGC 申诉证明（按需）
+    skill: software-copyright-aigc-appeal
+    ref: Phase 5.5 申诉证明文档
+    optional: true
+    artifacts:
+      - 'docs/*哈希值清单*.docx'
+      - 'docs/*研发日志*.docx'
+    evidence:
+      - tool: sc_source
+        action: collect-hashes
+    measure:
+      - kind: four-way-consistency
+        label: 四处口径一致（源程序目录 / 源代码文档封面 / 哈希清单 / 研发日志）
+    mustStopAfter: true
+
+  - id: p5-6-delivery
+    title: 统一交付
+    skill: python-software-delivery
+    ref: Phase 5.6 最终交付
+    artifacts: []
+    measure:
+      - kind: four-way-consistency
+        label: 交付清单自检（四处口径一致）
+      - kind: user-confirmed
+        label: 全部产物经用户逐份确认
+    mustStopAfter: false
+
+# 全程必须成立的不变量（sc_audit 复核）
+invariants:
+  - id: four-way
+    title: 四处口径一致
+    kind: four-way-consistency
+  - id: figure-counts
+    title: 图集屏数 = 图位数 = docx 内图片数
+    kind: figure-counts

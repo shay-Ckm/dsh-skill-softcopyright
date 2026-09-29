@@ -1,0 +1,159 @@
+﻿dsh-skill-softcopyright —— 解析器 harness
+
+=== parseManualCheck ===
+  PASS  退出码 0 → ok
+  PASS  箭头为 0
+  PASS  Markdown** 名能被匹配
+  PASS  非黑颜色为 0
+  PASS  斜体为 0
+  PASS  图题 37
+  PASS  图位 37
+  PASS  一致 True 解析为布尔
+  PASS  退出码 1 → ok=false
+  PASS  未通过给出提示
+
+=== parseManualStats ===
+  PASS  ok=true
+  PASS  段落数（冒号前两空格）
+  PASS  表格数
+  PASS  图题数
+  PASS  图位数
+  PASS  正文字符数（冒号前多一空格）
+  PASS  真实页数 60
+  PASS  页数来源为 Word 真实渲染
+  PASS  达标判定文本
+  PASS  回退时区间被解析
+  PASS  回退时 pages 为空
+  PASS  回退时两条提示
+
+=== parsePageEstimate ===
+  PASS  ok=true
+  PASS  页数 32.4
+  PASS  正文高度
+  PASS  表格高度
+  PASS  图片高度
+
+=== parseCheckSrcDoc ===
+  PASS  ok=false
+  PASS  一致文件数 1
+  PASS  差异文件数 1
+  PASS  缺失源码被记录
+  PASS  结论行被解析
+  PASS  全一致时 ok=true
+
+=== parseGenSrcDocx ===
+  PASS  ok=true
+  PASS  取最后一次「已生成」（另存 _V2）
+  PASS  文件数 26
+  PASS  代码行数 4103
+  PASS  保存失败时 ok=false（尽管退出码 0）
+  PASS  保存失败给出提示
+
+=== parseBuildPackage ===
+  PASS  zip 与 sdist 都解析到
+  PASS  ok=true
+  PASS  sdist 失败时 ok=false（退出码仍是 0）
+  PASS  sdist 状态为 failed
+  PASS  跳过 sdist 不算失败
+  PASS  参数不足时 ran=false
+
+=== parsePackageSmoke ===
+  PASS  ok=false
+  PASS  总数/通过/失败/通过率
+  PASS  失败用例被列出
+  PASS  提示这是模板脚本
+  PASS  退出码 2 标记目录不存在
+
+=== parseCheckInlineJs ===
+  PASS  ok=true 且块数 3
+  PASS  ok=false 且错误被记录
+  PASS  错误详情进 notes
+
+=== parseManualWithFigs ===
+  PASS  ok=false
+  PASS  图题 37 / 图片 36
+  PASS  一致 False
+  PASS  图号连续 True
+  PASS  残留占位段 0
+  PASS  表格 12
+  PASS  重复截图提示被捕获
+
+=== parseExtractDocx ===
+  PASS  ok=true
+  PASS  段落 412 与输出路径
+  PASS  引用图片 37
+  PASS  非 docx 时 ok=false 且 stderr 透出
+
+=== parseInsertAtlas ===
+  PASS  ok=true
+  PASS  插图 37 张
+  PASS  图题与占位段
+  PASS  备份路径被记录
+  PASS  二次插图时 ok=false（退出码仍是 0）
+  PASS  二次插图给出恢复指引
+  PASS  已有图片数被解析
+
+=== parseValidateAtlas ===
+  PASS  ok=true
+  PASS  容器/图注
+  PASS  编号连续 True
+  PASS  预期/实际一致
+  PASS  图表 div 与 init 引用
+  PASS  尺寸布尔
+
+=== parseValidateHtml ===
+  PASS  ok=false
+  PASS  四项计数
+  PASS  问题清单被采集
+
+=== parseScaleUnits ===
+  PASS  ok=true 且替换 5 处
+  PASS  倍率与输出路径
+
+=== parseShootRealUi ===
+  PASS  ok=false（唯一性未通过）
+  PASS  唯一图 36 / 总图 37
+  PASS  图号列表被采集
+  PASS  未滚动警告被提升为提示
+  PASS  崩溃时 ran=false
+  PASS  崩溃时提示含 stderr 摘要
+  PASS  唯一性通过时 ok=true
+
+=== parseAigcScan ===
+  PASS  扫描跑成功 ok=true
+  PASS  高频词种类 74
+  PASS  段落与字数
+  PASS  节奏五项
+  PASS  降幅 74→25 =66%
+  PASS  结构性残留 0
+  PASS  明确提示退出码无语义
+
+=== parseProbeResidue ===
+  PASS  ok=true
+  PASS  标红段 18、残留 0
+  PASS  颜色列表
+  PASS  总数为 0 也算 ok（脚本语义）
+  PASS  但明确提示别误判为已达标
+  PASS  有残留时 ok=false 且样本被采集
+  PASS  退出码 2 标记无效颜色
+
+=== parseSourceHashes（collect 变体，汇总在 stderr） ===
+  PASS  ok=true
+  PASS  汇总取自 stderr：26/4103/204800
+  PASS  TSV 行数 2
+
+=== parseSourceHashes（stats 变体，键名不同） ===
+  PASS  键名 FILES/LINES/BYTES 正确解析
+  PASS  缺汇总行时回退为按行累加
+  PASS  缺汇总行给出提示
+
+=== parseGenProofDocx ===
+  PASS  ok=true
+  PASS  两份文档都被采集
+  PASS  文件数/总行数
+  PASS  保存失败时 ok=false（退出码仍是 0）
+  PASS  保存失败给出提示
+
+================================================================
+通过 114 项，失败 0 项
+================================================================

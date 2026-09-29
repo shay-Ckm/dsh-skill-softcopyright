@@ -1,0 +1,32 @@
+# 依赖与构建产物
+node_modules/
+dist/
+*.tgz
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 本插件的运行时状态（属于使用者项目，不该进仓库）
+.dsh/
+
+# 软著交付产物（体积大，且属于使用者自己的项目）
+*.docx
+*.pdf
+*.tsv
+atlas/
+
+# 截图脚本的临时目录
+scripts/_atlas_tmp/
+
+# 编辑器与系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# 启动自诊断日志（可能落在仓库根）
+softcopyright-boot.log

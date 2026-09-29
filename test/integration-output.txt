@@ -1,0 +1,156 @@
+﻿dsh-skill-softcopyright —— 集成 harness
+插件根目录 : E:\Users\L\Desktop\个人ai项目\deepseel-harness\plugins\dsh-skill-softcopyright
+
+=== 依赖：真实官方包是否可解析 ===
+  PASS  schemastery 已就位
+  PASS  dsh-tools 已就位
+  PASS  dsh-util-values 已就位
+  PASS  dsh-brand 已就位
+
+=== 导入 lib/index.js（真实 schemastery + dsh-tools） ===
+  PASS  模块导入成功
+  PASS  导出 name
+  PASS  导出 inject 含 skills/systemPrompt/tools
+  PASS  inject 不含 subprocess（保持可选）
+  PASS  导出 apply 函数
+  PASS  导出 DEFAULT_ASSET_ROOT 且指向真实目录
+
+=== Config schema（schemastery 真实校验） ===
+  PASS  Config 存在
+  PASS  空配置解析成功
+  PASS  skills.enabled 默认 true
+  PASS  skills.assetRoot 默认空串
+  PASS  skills.injectToolGuide 默认 true
+  PASS  skills.enabledSkills 默认空数组
+  PASS  tools.doctor 默认 true
+  PASS  runtime.pythonPath 默认空串
+  PASS  runtime.renderPythonPath 默认为已实测路径
+  PASS  runtime.defaultTimeoutMs 默认 60000
+  PASS  部分覆盖生效
+  PASS  未覆盖字段仍取默认值
+  PASS  覆盖数字字段生效
+  PASS  类型错误被 schema 拒绝
+
+=== apply()：默认配置装配 ===
+  PASS  注册了 1 个 skill provider
+  PASS  注册了 6 个工具
+  PASS  首个工具为 sc_doctor
+  PASS  工具描述非空
+  PASS  工具标记为并发安全
+  PASS  工具声明了超时
+  PASS  工具定义了 output schema
+  PASS  工具定义了 presentCall
+  PASS  每个工具都注册了 systemPrompt 段
+  PASS  段名与工具名一一对应
+  PASS  所有段 order 都是有限数字
+  PASS  所有段都关闭了变量插值
+  PASS  所有段文本非空
+  PASS  provider 提供 4 个技能
+  PASS  provider 名为 softcopyright
+
+=== apply()：M2 五个分组工具的形状 ===
+  PASS  注册了 6 个工具（doctor + 5 分组）
+  PASS  sc_doctor 已注册
+  PASS  sc_manual 已注册
+  PASS  sc_source 已注册
+  PASS  sc_aigc 已注册
+  PASS  sc_proof 已注册
+  PASS  sc_atlas 已注册
+  PASS  sc_manual action 枚举完整（6 个）
+  PASS  sc_manual action 必填
+  PASS  sc_manual 描述足够长
+  PASS  sc_manual 超时为正
+  PASS  sc_manual 没有多余参数泄漏进 schema
+  PASS  sc_source action 枚举完整（6 个）
+  PASS  sc_source action 必填
+  PASS  sc_source 描述足够长
+  PASS  sc_source 超时为正
+  PASS  sc_source 没有多余参数泄漏进 schema
+  PASS  sc_aigc action 枚举完整（3 个）
+  PASS  sc_aigc action 必填
+  PASS  sc_aigc 描述足够长
+  PASS  sc_aigc 超时为正
+  PASS  sc_aigc 没有多余参数泄漏进 schema
+  PASS  sc_proof action 枚举完整（4 个）
+  PASS  sc_proof action 必填
+  PASS  sc_proof 描述足够长
+  PASS  sc_proof 超时为正
+  PASS  sc_proof 没有多余参数泄漏进 schema
+  PASS  sc_atlas action 枚举完整（4 个）
+  PASS  sc_atlas action 必填
+  PASS  sc_atlas 描述足够长
+  PASS  sc_atlas 超时为正
+  PASS  sc_atlas 没有多余参数泄漏进 schema
+  PASS  insert-atlas 不可并发
+  PASS  check 可并发
+  PASS  build-package 不可并发
+  PASS  shoot 不可并发且超时很长
+  PASS  sc_manual check 缺 docx 时报错
+  PASS  会话工作区外的 docx 被路径守卫拒绝
+
+=== apply()：配置开关生效 ===
+  PASS  skills.enabled=false 时不注册 provider
+  PASS  只关 doctor 时其余 5 个分组工具仍在
+  PASS  doctor 确实被关掉
+  PASS  全部关掉时零工具
+  PASS  只留 doctor 时恰好 1 个工具
+  PASS  injectToolGuide=false 时正文无工具指引
+  PASS  enabledSkills 生效
+  PASS  未知 enabledSkills 在 apply 时抛错（快速失败）
+
+=== apply()：sc_doctor 工具真的能执行（含真实子进程） ===
+  PASS  工具 execute 是函数
+  PASS  execute 返回结构化结果
+  PASS  结果 ok=true
+  PASS  报告文本含两条链
+  PASS  报告含资产明细
+  PASS  warnings 是数组
+  PASS  所有 spawn 请求都带了必填 cwd（回归守卫）
+  PASS  apply 时未走 seam 失败分支
+  PASS  output.render 产出文本块
+  PASS  渲染文本与报告一致
+  PASS  presentCall 返回卡片描述
+
+=== M2 基建：lib/guard.js 路径守卫 ===
+  PASS  isInside 接受自身
+  PASS  isInside 接受子路径
+  PASS  isInside 拒绝父级
+  PASS  isInside 拒绝同前缀不同目录
+  PASS  isInside 大小写不敏感（Windows）
+  PASS  工作区内放行
+  PASS  插件资源目录无条件放行
+  PASS  allowlist 放行
+  PASS  工作区外拒绝
+  PASS  拒绝理由含可操作提示
+  PASS  assert 越界时抛错
+  PASS  无边界信息时不拦截但标记 guarded=false
+  PASS  守卫可自述边界
+
+=== M2 基建：lib/tools/registry.js（对真实 defineTool 校验 schema） ===
+  PASS  真实 defineTool 接受该 schema
+  PASS  参数表含 action 与"被 action 引用"的参数（未引用的 flag 不进表）
+  PASS  action 有 enum
+  PASS  action 是必填
+  PASS  docx 未被标记必填（必填性由 action 决定）
+  PASS  prompt 原样返回给调用方
+  PASS  output schema 通过校验
+  PASS  render 是函数
+  PASS  execute 分发到 alpha
+  PASS  返回信封含 ok/action/summary/fields
+  PASS  字段被拼成 key=value
+  PASS  output 透传原始 stdout
+  PASS  未提供 summary 时自动兜底渲染
+  PASS  execute 分发到 beta 且 ok=false 透传
+  PASS  缺必需参数时报可操作错误
+  PASS  未知 action 在 schema 层被拦下并列出可选值
+  PASS  并发安全按 action 判定（alpha 可并发）
+  PASS  并发安全按 action 判定（beta 不可并发）
+  PASS  render 输出文本块
+  PASS  presentCall 标题含 action
+  PASS  引用未声明参数时构建即失败
+  PASS  toFields 跳过空值
+  PASS  toFields 展开数组
+
+================================================================
+通过 132 项，失败 0 项，警告 0 项
+================================================================
